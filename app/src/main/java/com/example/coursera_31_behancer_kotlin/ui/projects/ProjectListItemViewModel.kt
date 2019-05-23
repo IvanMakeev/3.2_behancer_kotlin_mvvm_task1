@@ -9,10 +9,8 @@ class ProjectListItemViewModel(project: Project) {
         private const val FIRST_OWNER_INDEX = 0
     }
 
-    init {
-        val imageUrl: String = project.cover!!.photoUrl
-        val name: String = project.name
-        val username: String = project.owners!![FIRST_OWNER_INDEX].username
-        val publishedOn: String = DateUtils.format(project.publishedOn)
-    }
+    val imageUrl: String = project.cover!!.photoUrl
+    val name: String = project.name
+    val username: String = project.owners!![FIRST_OWNER_INDEX].username
+    val publishedOn: String = DateUtils.format(project.publishedOn)
 }

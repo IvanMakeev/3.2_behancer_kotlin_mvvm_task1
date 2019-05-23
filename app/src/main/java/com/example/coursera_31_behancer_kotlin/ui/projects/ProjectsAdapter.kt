@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.example.coursera_31_behancer_kotlin.R
 import com.example.coursera_31_behancer_kotlin.data.model.project.Project
+import com.example.coursera_31_behancer_kotlin.databinding.ProjectBinding
 import java.util.*
 
 class ProjectsAdapter(private val onItemClickListener: OnItemClickListener) : RecyclerView.Adapter<ProjectsHolder>() {
@@ -13,8 +14,8 @@ class ProjectsAdapter(private val onItemClickListener: OnItemClickListener) : Re
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProjectsHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val view = inflater.inflate(R.layout.li_projects, parent, false)
-        return ProjectsHolder(view)
+        val binding = ProjectBinding.inflate(inflater, parent, false)
+        return ProjectsHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ProjectsHolder, position: Int) {
