@@ -11,6 +11,10 @@ import com.squareup.picasso.Picasso
 
 class ProjectsHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
+    companion object {
+        private const val FIRST_OWNER_INDEX = 0
+    }
+
     private val image: ImageView = itemView.findViewById(R.id.image)
     private val name: TextView = itemView.findViewById(R.id.tv_name)
     private val username: TextView = itemView.findViewById(R.id.tv_username)
@@ -33,9 +37,5 @@ class ProjectsHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
                 )
             }
         }
-    }
-
-    companion object {
-        private const val FIRST_OWNER_INDEX = 0
     }
 }
