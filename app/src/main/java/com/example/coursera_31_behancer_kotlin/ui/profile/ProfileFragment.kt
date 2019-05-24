@@ -15,6 +15,7 @@ import com.example.coursera_31_behancer_kotlin.data.Storage
 import com.example.coursera_31_behancer_kotlin.data.model.user.User
 import com.example.coursera_31_behancer_kotlin.utils.ApiUtils
 import com.example.coursera_31_behancer_kotlin.utils.DateUtils
+import com.example.coursera_31_behancer_kotlin.utils.loadImage
 import com.squareup.picasso.Picasso
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
