@@ -7,7 +7,7 @@ import com.example.coursera_31_behancer_kotlin.data.Storage
 
 class ProjectsActivity : SingleFragmentActivity(), Storage.StorageOwner {
 
-    protected override fun getFragment(): Fragment {
+    override fun getFragment(): Fragment {
         return ProjectsFragment.newInstance()
     }
 

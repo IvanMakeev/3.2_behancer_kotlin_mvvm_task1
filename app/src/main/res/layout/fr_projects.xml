@@ -1,24 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/refresher"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent">
 
-    <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/tools">
 
-        <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler"
+    <data class="ProjectsBinding">
+        <variable
+                name="vm"
+                type="com.example.coursera_31_behancer_kotlin.ui.projects.ProjectsViewModel"/>
+    </data>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/refresher"
+            bind:refreshState="@{vm.isLoading()}"
+            bind:onRefresh="@{vm.onRefreshListener}"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent">
+
+        <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="visible"/>
+                android:layout_height="match_parent">
 
-        <include
-                layout="@layout/v_error"
-                android:visibility="gone"/>
+            <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    bind:data="@{vm.projects}"
+                    bind:clickHandler="@{vm.onItemClickListener}"
+                    bind:visibleOrGone="@{vm.isErrorVisible()}"/>
 
-    </FrameLayout>
+            <include
+                    layout="@layout/v_error"
+                    bind:visibleOrGone="@{vm.isErrorVisible()}"/>
 
-</android.support.v4.widget.SwipeRefreshLayout>
+        </LinearLayout>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+</layout>
