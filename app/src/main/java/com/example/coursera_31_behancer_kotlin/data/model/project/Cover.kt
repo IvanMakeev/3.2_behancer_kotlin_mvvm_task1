@@ -26,5 +26,4 @@ data class Cover(
     @ColumnInfo(name = "project_id")
     var projectId: Int
 ) : Serializable {
-//    constructor() : this(0, "", 0)
 }

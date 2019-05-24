@@ -23,6 +23,18 @@ import io.reactivex.schedulers.Schedulers
 
 class ProfileFragment : Fragment(), Refreshable {
 
+    companion object {
+
+        const val PROFILE_KEY = "PROFILE_KEY"
+
+        fun newInstance(args: Bundle): ProfileFragment {
+            val fragment = ProfileFragment()
+            fragment.arguments = args
+
+            return fragment
+        }
+    }
+
     private var refreshOwner: RefreshOwner? = null
     private lateinit var errorView: View
     private lateinit var profileView: View
@@ -118,17 +130,5 @@ class ProfileFragment : Fragment(), Refreshable {
             disposable.dispose()
         }
         super.onDetach()
-    }
-
-    companion object {
-
-        const val PROFILE_KEY = "PROFILE_KEY"
-
-        fun newInstance(args: Bundle): ProfileFragment {
-            val fragment = ProfileFragment()
-            fragment.arguments = args
-
-            return fragment
-        }
     }
 }

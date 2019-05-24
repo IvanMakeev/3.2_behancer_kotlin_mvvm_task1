@@ -11,22 +11,5 @@ class ProjectsHolder(private val projectBinding: ProjectBinding) : RecyclerView.
         projectBinding.project = ProjectListItemViewModel(item)
         projectBinding.onItemClickListener = onItemClickListener
         projectBinding.executePendingBindings()
-
-//        Picasso.with(image.context).load(item.cover!!.photoUrl)
-//            .fit()
-//            .into(image)
-//
-//        name.text = item.name
-//        username.text = item.owners!![FIRST_OWNER_INDEX].username
-//        publishedOn.text = DateUtils.format(item.publishedOn)
-//
-//        if (onItemClickListener != null) {
-//            itemView.setOnClickListener {
-//                onItemClickListener.onItemClick(
-//                    item.owners!![FIRST_OWNER_INDEX]
-//                        .username
-//                )
-//            }
-//        }
     }
 }
