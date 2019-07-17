@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,7 +41,7 @@ class ProjectsFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val binding = ProjectsBinding.inflate(inflater, container,false)
+        val binding = ProjectsBinding.inflate(inflater, container, false)
         binding.vm = projectsViewModel
         return binding.root
     }
@@ -53,7 +52,6 @@ class ProjectsFragment : Fragment() {
         if (activity != null) {
             activity!!.setTitle(R.string.projects)
         }
-
         projectsViewModel.loadProjects()
     }
 

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:bind="http://schemas.android.com/tools">
+        xmlns:bind="http://schemas.android.com/apk/res-auto"
+>
 
     <data class="ProjectsBinding">
         <variable
@@ -11,10 +12,10 @@
 
     <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/refresher"
-            bind:refreshState="@{vm.isLoading()}"
-            bind:onRefresh="@{vm.onRefreshListener}"
             android:layout_height="match_parent"
-            android:layout_width="match_parent">
+            android:layout_width="match_parent"
+            bind:refreshState="@{vm.isLoading()}"
+            bind:onRefresh="@{vm.onRefreshListener}">
 
         <LinearLayout
                 android:orientation="vertical"
@@ -34,6 +35,5 @@
                     bind:visibleOrGone="@{vm.isErrorVisible()}"/>
 
         </LinearLayout>
-
     </android.support.v4.widget.SwipeRefreshLayout>
 </layout>

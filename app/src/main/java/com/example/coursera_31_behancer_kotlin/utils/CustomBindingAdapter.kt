@@ -15,7 +15,7 @@ import com.squareup.picasso.Picasso
 //если определять как статические метод вне класс, то нужно определять imageView в сигнатуре метода
 
 @BindingAdapter("bind:imageUrl")
-fun ImageView.loadImage(urlImage: String) {
+fun ImageView.loadImage(urlImage: String?) {
     Picasso.with(this.context).load(urlImage).into(this)
 }
 
@@ -34,9 +34,9 @@ fun configureRecyclerView(
 fun configureSwipeRefreshLayout(
     layout: SwipeRefreshLayout,
     isLoading: Boolean,
-    lisener: SwipeRefreshLayout.OnRefreshListener
+    listener: SwipeRefreshLayout.OnRefreshListener
 ) {
-    layout.setOnRefreshListener(lisener)
+    layout.setOnRefreshListener(listener)
     layout.post { layout.isRefreshing = isLoading }
 }
 

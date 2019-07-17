@@ -4,8 +4,7 @@ import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import com.example.coursera_31_behancer_kotlin.R
 
-abstract class RefreshActivity : SingleFragmentActivity(), SwipeRefreshLayout.OnRefreshListener,
-    RefreshOwner {
+abstract class RefreshActivity : SingleFragmentActivity(), SwipeRefreshLayout.OnRefreshListener, RefreshOwner {
 
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
