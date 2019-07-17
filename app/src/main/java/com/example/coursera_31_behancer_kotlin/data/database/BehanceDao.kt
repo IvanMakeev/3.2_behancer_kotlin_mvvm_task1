@@ -39,7 +39,7 @@ interface BehanceDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertImage(image: Image)
 
-    @Query("select * from project")
+    @Query("select * from project order by published_on desc")
     fun getProjectsLive(): LiveData<List<RichProject>>
 
     @Query("select * from owner where project_id = :projectId")

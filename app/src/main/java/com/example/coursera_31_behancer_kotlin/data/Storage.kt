@@ -9,9 +9,11 @@ import java.util.*
 class Storage(private val behanceDao: BehanceDao) {
 
     fun insertProjects(response: ProjectResponse) {
-        val projects = response.projects
-        behanceDao.insertProjects(projects)
+        insertProjects(response.projects)
+    }
 
+    fun insertProjects(projects: List<Project>) {
+        behanceDao.insertProjects(projects)
         val owners = getOwners(projects)
         behanceDao.clearOwnerTable()
         behanceDao.insertOwners(owners)
