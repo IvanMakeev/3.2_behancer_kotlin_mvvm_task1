@@ -1,5 +1,6 @@
 package com.example.coursera_31_behancer_kotlin.utils
 
+import android.arch.lifecycle.MutableLiveData
 import android.databinding.BindingAdapter
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
@@ -22,10 +23,10 @@ fun ImageView.loadImage(urlImage: String) {
 @BindingAdapter("bind:data", "bind:clickHandler")
 fun configureRecyclerView(
     recyclerView: RecyclerView,
-    project: ArrayList<Project>,
+    project: MutableLiveData<List<Project>>,
     listener: ProjectsAdapter.OnItemClickListener
 ) {
-    val adapter = ProjectsAdapter(project, listener)
+    val adapter = ProjectsAdapter(project.value as ArrayList<Project>, listener)
     recyclerView.layoutManager = LinearLayoutManager(recyclerView.context)
     recyclerView.adapter = adapter
 }
@@ -34,9 +35,9 @@ fun configureRecyclerView(
 fun configureSwipeRefreshLayout(
     layout: SwipeRefreshLayout,
     isLoading: Boolean,
-    lisener: SwipeRefreshLayout.OnRefreshListener
+    listener: SwipeRefreshLayout.OnRefreshListener
 ) {
-    layout.setOnRefreshListener(lisener)
+    layout.setOnRefreshListener(listener)
     layout.post { layout.isRefreshing = isLoading }
 }
 

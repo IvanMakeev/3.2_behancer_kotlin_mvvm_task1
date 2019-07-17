@@ -1,5 +1,6 @@
 package com.example.coursera_31_behancer_kotlin.ui.projects
 
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -13,6 +14,7 @@ import com.example.coursera_31_behancer_kotlin.data.Storage
 import com.example.coursera_31_behancer_kotlin.databinding.ProjectsBinding
 import com.example.coursera_31_behancer_kotlin.ui.profile.ProfileActivity
 import com.example.coursera_31_behancer_kotlin.ui.profile.ProfileFragment
+import com.example.coursera_31_behancer_kotlin.utils.CustomFactory
 
 class ProjectsFragment : Fragment() {
 
@@ -37,29 +39,15 @@ class ProjectsFragment : Fragment() {
         super.onAttach(context)
         if (context is Storage.StorageOwner) {
             val storage = context.obtainStorage()
-            projectsViewModel = ProjectsViewModel(storage, onItemClickListener)
+            val factory = CustomFactory(storage, onItemClickListener)
+            projectsViewModel = ViewModelProviders.of(this, factory).get(ProjectsViewModel::class.java)
         }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val binding = ProjectsBinding.inflate(inflater, container,false)
+        val binding = ProjectsBinding.inflate(inflater, container, false)
         binding.vm = projectsViewModel
+        binding.lifecycleOwner = this
         return binding.root
     }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        if (activity != null) {
-            activity!!.setTitle(R.string.projects)
-        }
-
-        projectsViewModel.loadProjects()
-    }
-
-    override fun onDetach() {
-        projectsViewModel.dispatchDetach()
-        super.onDetach()
-    }
-
 }

@@ -1,5 +1,7 @@
 package com.example.coursera_31_behancer_kotlin.ui.projects
 
+import android.arch.lifecycle.MutableLiveData
+import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableArrayList
 import android.databinding.ObservableBoolean
 import android.support.v4.widget.SwipeRefreshLayout
@@ -14,13 +16,18 @@ import io.reactivex.schedulers.Schedulers
 class ProjectsViewModel(
     private var storage: Storage?,
     val onItemClickListener: ProjectsAdapter.OnItemClickListener
-) {
+) : ViewModel() {
 
     private var disposable: Disposable? = null
-    val isLoading = ObservableBoolean(false)
-    val isErrorVisible = ObservableBoolean(false)
-    val projects = ObservableArrayList<Project>()
+    val isLoading = MutableLiveData<Boolean>()
+    val isErrorVisible = MutableLiveData<Boolean>()
+    val projects = MutableLiveData<List<Project>>()
     val onRefreshListener = SwipeRefreshLayout.OnRefreshListener {
+        loadProjects()
+    }
+
+    init {
+        projects.value = ArrayList()
         loadProjects()
     }
 
@@ -30,19 +37,20 @@ class ProjectsViewModel(
             .onErrorReturn { throwable -> if (ApiUtils.NETWORK_EXCEPTIONS.contains(throwable::class.java)) storage!!.getProjects() else null }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { isLoading.set(true) }
-            .doFinally { isLoading.set(false) }
+            .doOnSubscribe { isLoading.postValue(true) }
+            .doFinally { isLoading.postValue(false) }
             .subscribe(
                 { response ->
-                    isErrorVisible.set(false)
-                    projects.addAll(response.projects)
+                    isErrorVisible.postValue(false)
+                    projects.postValue(response.projects)
                 },
                 { throwable ->
-                    isErrorVisible.set(true)
+                    isErrorVisible.postValue(true)
                 })
     }
 
-    fun dispatchDetach() {
+    override fun onCleared() {
+        super.onCleared()
         storage = null
         if (disposable != null) {
             disposable!!.dispose()
