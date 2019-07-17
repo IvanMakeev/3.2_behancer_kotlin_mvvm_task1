@@ -1,9 +1,6 @@
 package com.example.coursera_31_behancer_kotlin.data.model.project
 
-import android.arch.persistence.room.ColumnInfo
-import android.arch.persistence.room.Entity
-import android.arch.persistence.room.Ignore
-import android.arch.persistence.room.PrimaryKey
+import android.arch.persistence.room.*
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
@@ -23,7 +20,7 @@ data class Project(
     var publishedOn: Long,
 
     @SerializedName("covers")
-    @Ignore
+    @Embedded
     var cover: Cover? = null,
 
     @SerializedName("owners")

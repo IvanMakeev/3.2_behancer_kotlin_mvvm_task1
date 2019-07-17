@@ -1,11 +1,8 @@
 package com.example.coursera_31_behancer_kotlin.data
 
-import android.support.v4.util.Pair
+import android.arch.lifecycle.LiveData
 import com.example.coursera_31_behancer_kotlin.data.database.BehanceDao
-import com.example.coursera_31_behancer_kotlin.data.model.project.Cover
-import com.example.coursera_31_behancer_kotlin.data.model.project.Owner
-import com.example.coursera_31_behancer_kotlin.data.model.project.Project
-import com.example.coursera_31_behancer_kotlin.data.model.project.ProjectResponse
+import com.example.coursera_31_behancer_kotlin.data.model.project.*
 import com.example.coursera_31_behancer_kotlin.data.model.user.UserResponse
 import java.util.*
 
@@ -15,36 +12,30 @@ class Storage(private val behanceDao: BehanceDao) {
         val projects = response.projects
         behanceDao.insertProjects(projects)
 
-        val assembled = assemble(projects)
-
-        behanceDao.clearCoverTable()
-        behanceDao.insertCovers(assembled.first!!)
+        val owners = getOwners(projects)
         behanceDao.clearOwnerTable()
-        behanceDao.insertOwners(assembled.second!!)
+        behanceDao.insertOwners(owners)
     }
 
-    private fun assemble(projects: List<Project>): Pair<List<Cover>, List<Owner>> {
-
-        val covers = ArrayList<Cover>()
+    private fun getOwners(projects: List<Project>): List<Owner> {
         val owners = ArrayList<Owner>()
         for (i in projects.indices) {
-            val cover = projects[i].cover
-            cover!!.id = i
-            cover.projectId = projects[i].id
-            covers.add(cover)
 
             val owner = projects[i].owners!![0]
             owner.id = i
             owner.projectId = projects[i].id
             owners.add(owner)
         }
-        return Pair(covers, owners)
+        return owners
+    }
+
+    fun getProjectsLive(): LiveData<List<RichProject>> {
+        return behanceDao.getProjectsLive()
     }
 
     fun getProjects(): ProjectResponse {
         val projects = behanceDao.projects
         for (project in projects) {
-            project.cover = behanceDao.getCoverFromProject(project.id)
             project.owners = behanceDao.getOwnersFromProject(project.id)
         }
 

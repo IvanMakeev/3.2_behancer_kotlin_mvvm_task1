@@ -1,5 +1,6 @@
 package com.example.coursera_31_behancer_kotlin.data.database
 
+import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Insert
 import android.arch.persistence.room.OnConflictStrategy
@@ -7,6 +8,7 @@ import android.arch.persistence.room.Query
 import com.example.coursera_31_behancer_kotlin.data.model.project.Cover
 import com.example.coursera_31_behancer_kotlin.data.model.project.Owner
 import com.example.coursera_31_behancer_kotlin.data.model.project.Project
+import com.example.coursera_31_behancer_kotlin.data.model.project.RichProject
 import com.example.coursera_31_behancer_kotlin.data.model.user.Image
 import com.example.coursera_31_behancer_kotlin.data.model.user.User
 
@@ -37,8 +39,8 @@ interface BehanceDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertImage(image: Image)
 
-    @Query("select * from cover where project_id = :projectId")
-    fun getCoverFromProject(projectId: Int): Cover
+    @Query("select * from project")
+    fun getProjectsLive(): LiveData<List<RichProject>>
 
     @Query("select * from owner where project_id = :projectId")
     fun getOwnersFromProject(projectId: Int): List<Owner>
