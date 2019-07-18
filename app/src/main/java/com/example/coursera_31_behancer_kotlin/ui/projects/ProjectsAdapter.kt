@@ -4,9 +4,13 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.example.coursera_31_behancer_kotlin.data.model.project.Project
+import com.example.coursera_31_behancer_kotlin.data.model.project.RichProject
 import com.example.coursera_31_behancer_kotlin.databinding.ProjectBinding
 
-class ProjectsAdapter(private val projects: ArrayList<Project>, private val onItemClickListener: OnItemClickListener) :
+class ProjectsAdapter(
+    private val projects: List<RichProject>,
+    private val onItemClickListener: OnItemClickListener
+) :
     RecyclerView.Adapter<ProjectsHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProjectsHolder {
@@ -21,7 +25,7 @@ class ProjectsAdapter(private val projects: ArrayList<Project>, private val onIt
     }
 
     override fun getItemCount(): Int {
-        return projects.size
+        return projects.size ?: 0
     }
 
     interface OnItemClickListener {

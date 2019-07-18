@@ -7,5 +7,5 @@ class RichProject(
     @Embedded
     var project: Project? = null,
     @Relation(entity = Owner::class, entityColumn = "project_id", parentColumn = "id")
-    var owners: List<Owner>? = null
+    var owners: List<Owner> = ArrayList<Owner>()
 )

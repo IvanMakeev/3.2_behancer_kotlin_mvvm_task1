@@ -4,6 +4,7 @@
         xmlns:bind="http://schemas.android.com/tools">
 
     <data class="ProjectsBinding">
+        <import type="android.arch.lifecycle.LiveData"/>
         <variable
                 name="vm"
                 type="com.example.coursera_31_behancer_kotlin.ui.projects.ProjectsViewModel"/>
