@@ -1,13 +1,8 @@
 package com.example.coursera_31_behancer_kotlin.ui.projects.all_projects
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MutableLiveData
-import android.arch.paging.PagedList
-import android.support.v4.widget.SwipeRefreshLayout
 import com.example.coursera_31_behancer_kotlin.BuildConfig
 import com.example.coursera_31_behancer_kotlin.data.Storage
 import com.example.coursera_31_behancer_kotlin.data.model.project.ProjectResponse
-import com.example.coursera_31_behancer_kotlin.data.model.project.RichProject
 import com.example.coursera_31_behancer_kotlin.ui.projects.BaseProjectsViewModel
 import com.example.coursera_31_behancer_kotlin.ui.projects.ProjectsAdapter
 import com.example.coursera_31_behancer_kotlin.utils.ApiUtils

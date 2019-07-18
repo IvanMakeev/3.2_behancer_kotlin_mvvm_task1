@@ -6,6 +6,9 @@
         <variable
                 name="profile"
                 type="com.example.coursera_31_behancer_kotlin.ui.profile.ProfileViewModel"/>
+
+        <variable name="click"
+                  type="com.example.coursera_31_behancer_kotlin.ui.profile.ProfileFragment"/>
     </data>
 
     <RelativeLayout
@@ -60,6 +63,16 @@
                 android:layout_alignStart="@id/tv_created_on_details"
                 android:layout_below="@id/tv_created_on_details"
                 android:text="@{profile.profileLocation}"/>
+
+        <Button android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btn_all_projects"
+                android:text="@string/all_projects"
+                android:textStyle="bold"
+                android:layout_alignLeft="@id/tv_created_on_details"
+                android:layout_alignStart="@id/tv_created_on_details"
+                android:layout_below="@id/tv_location_details"/>
+                <!--android:onClick="@{click.onProjectsClickListener}"/>-->
 
     </RelativeLayout>
 </layout>

@@ -15,8 +15,8 @@ class ProjectListItemViewModel(item: RichProject) {
     val username: String
 
     init {
-        username = if (item.owners.isNotEmpty()) {
-            item.owners[FIRST_OWNER_INDEX].username
+        username = if (item.owners!!.isNotEmpty()) {
+            item.owners!![FIRST_OWNER_INDEX].username
         } else {
             ""
         }

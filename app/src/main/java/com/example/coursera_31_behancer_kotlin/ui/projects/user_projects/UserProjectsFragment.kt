@@ -13,11 +13,13 @@ import com.example.coursera_31_behancer_kotlin.databinding.ProjectsBinding
 import com.example.coursera_31_behancer_kotlin.ui.profile.ProfileActivity
 import com.example.coursera_31_behancer_kotlin.ui.profile.ProfileFragment
 import com.example.coursera_31_behancer_kotlin.ui.projects.ProjectsAdapter
-import com.example.coursera_31_behancer_kotlin.utils.CustomFactory
+import com.example.coursera_31_behancer_kotlin.utils.ProjectsViewModelFactory
 
 class UserProjectsFragment : Fragment() {
 
     companion object {
+        const val USER_ID = "USER_ID"
+
         fun newInstance(): UserProjectsFragment {
             return UserProjectsFragment()
         }
@@ -38,7 +40,7 @@ class UserProjectsFragment : Fragment() {
         super.onAttach(context)
         if (context is Storage.StorageOwner) {
             val storage = context.obtainStorage()
-            val factory = CustomFactory(storage, onItemClickListener)
+            val factory = ProjectsViewModelFactory(storage, onItemClickListener)
             userProjectsViewModel = ViewModelProviders.of(this, factory).get(userProjectsViewModel::class.java)
         }
     }

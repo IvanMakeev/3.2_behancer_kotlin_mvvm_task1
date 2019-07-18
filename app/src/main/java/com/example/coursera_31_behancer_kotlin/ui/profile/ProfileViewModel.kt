@@ -45,7 +45,7 @@ class ProfileViewModel(
                     isErrorVisible.set(false)
                     bind(response.user)
                 },
-                { throwable ->
+                {
                     isErrorVisible.set(true)
                 })
     }

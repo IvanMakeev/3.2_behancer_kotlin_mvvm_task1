@@ -1,6 +1,7 @@
 package com.example.coursera_31_behancer_kotlin.ui.profile
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -8,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.coursera_31_behancer_kotlin.data.Storage
 import com.example.coursera_31_behancer_kotlin.databinding.ProfileBinding
+import com.example.coursera_31_behancer_kotlin.ui.projects.user_projects.UserProjectsActivity
+import com.example.coursera_31_behancer_kotlin.ui.projects.user_projects.UserProjectsFragment
 
 class ProfileFragment : Fragment() {
 
@@ -23,6 +26,14 @@ class ProfileFragment : Fragment() {
 
     private lateinit var profileViewModel: ProfileViewModel
     private lateinit var username: String
+
+//    val onProjectsClickListener = View.OnClickListener {
+//        val intent = Intent(activity, UserProjectsActivity::class.java)
+//        val args = Bundle()
+//        args.putString(UserProjectsFragment.USER_ID, username)
+//        intent.putExtra(ProfileActivity.USERNAME_KEY, args)
+//        startActivity(intent)
+//    }
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)

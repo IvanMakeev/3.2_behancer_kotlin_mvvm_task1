@@ -14,12 +14,13 @@ abstract class BaseProjectsViewModel(
     val onItemClickListener: ProjectsAdapter.OnItemClickListener
 ) : ViewModel() {
     protected var disposable: Disposable? = null
-     val isLoading = MutableLiveData<Boolean>()
-     val isErrorVisible = MutableLiveData<Boolean>()
-     val projects: LiveData<PagedList<RichProject>> = storage!!.getProjectsPaged()
+    val isLoading = MutableLiveData<Boolean>()
+    val isErrorVisible = MutableLiveData<Boolean>()
+    val projects: LiveData<PagedList<RichProject>> = storage!!.getProjectsPaged()
     val onRefreshListener = SwipeRefreshLayout.OnRefreshListener {
         updateProjects()
     }
+
     abstract fun updateProjects()
 
     override fun onCleared() {
