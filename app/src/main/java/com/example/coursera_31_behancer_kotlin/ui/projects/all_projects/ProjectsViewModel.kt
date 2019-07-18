@@ -1,36 +1,28 @@
-package com.example.coursera_31_behancer_kotlin.ui.projects
+package com.example.coursera_31_behancer_kotlin.ui.projects.all_projects
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
 import android.arch.paging.PagedList
 import android.support.v4.widget.SwipeRefreshLayout
 import com.example.coursera_31_behancer_kotlin.BuildConfig
 import com.example.coursera_31_behancer_kotlin.data.Storage
 import com.example.coursera_31_behancer_kotlin.data.model.project.ProjectResponse
 import com.example.coursera_31_behancer_kotlin.data.model.project.RichProject
+import com.example.coursera_31_behancer_kotlin.ui.projects.BaseProjectsViewModel
+import com.example.coursera_31_behancer_kotlin.ui.projects.ProjectsAdapter
 import com.example.coursera_31_behancer_kotlin.utils.ApiUtils
-import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
 class ProjectsViewModel(
-    private var storage: Storage?,
-    val onItemClickListener: ProjectsAdapter.OnItemClickListener
-) : ViewModel() {
-
-    private var disposable: Disposable? = null
-    val isLoading = MutableLiveData<Boolean>()
-    val isErrorVisible = MutableLiveData<Boolean>()
-    val projects: LiveData<PagedList<RichProject>> = storage!!.getProjectsPaged()
-    val onRefreshListener = SwipeRefreshLayout.OnRefreshListener {
-        updateProjects()
-    }
+    storage: Storage?,
+    onItemClickListener: ProjectsAdapter.OnItemClickListener
+) : BaseProjectsViewModel(storage, onItemClickListener) {
 
     init {
         updateProjects()
     }
 
-    private fun updateProjects() {
+    override fun updateProjects() {
         disposable = ApiUtils.getApiService().getProjects(BuildConfig.API_QUERY)
             .map(ProjectResponse::projects)
             .doOnSuccess { isErrorVisible.postValue(false) }
@@ -47,13 +39,5 @@ class ProjectsViewModel(
                     isErrorVisible.postValue(value)
                 })
 
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        storage = null
-        if (disposable != null) {
-            disposable!!.dispose()
-        }
     }
 }
