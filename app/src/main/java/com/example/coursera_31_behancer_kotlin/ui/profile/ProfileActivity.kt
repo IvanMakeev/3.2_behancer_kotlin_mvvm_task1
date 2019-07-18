@@ -2,10 +2,10 @@ package com.example.coursera_31_behancer_kotlin.ui.profile
 
 import android.support.v4.app.Fragment
 import com.example.coursera_31_behancer_kotlin.AppDelegate
-import com.example.coursera_31_behancer_kotlin.common.RefreshActivity
+import com.example.coursera_31_behancer_kotlin.common.SingleFragmentActivity
 import com.example.coursera_31_behancer_kotlin.data.Storage
 
-class ProfileActivity : RefreshActivity(), Storage.StorageOwner{
+class ProfileActivity : SingleFragmentActivity(), Storage.StorageOwner {
 
     companion object {
         const val USERNAME_KEY = "USERNAME_KEY"
