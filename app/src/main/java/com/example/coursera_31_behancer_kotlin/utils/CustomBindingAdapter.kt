@@ -2,6 +2,7 @@ package com.example.coursera_31_behancer_kotlin.utils
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
+import android.arch.paging.PagedList
 import android.databinding.BindingAdapter
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
@@ -25,10 +26,11 @@ fun ImageView.loadImage(urlImage: String) {
 @BindingAdapter("bind:data", "bind:clickHandler")
 fun configureRecyclerView(
     recyclerView: RecyclerView,
-    project: LiveData<List<RichProject>>,
+    project: PagedList<RichProject>?,
     listener: ProjectsAdapter.OnItemClickListener
 ) {
-    val adapter = ProjectsAdapter(project.value ?: ArrayList<RichProject>(), listener)
+    val adapter = ProjectsAdapter(listener)
+    adapter.submitList(project)
     recyclerView.layoutManager = LinearLayoutManager(recyclerView.context)
     recyclerView.adapter = adapter
 }

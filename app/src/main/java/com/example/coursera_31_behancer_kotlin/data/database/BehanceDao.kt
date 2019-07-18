@@ -1,6 +1,7 @@
 package com.example.coursera_31_behancer_kotlin.data.database
 
 import android.arch.lifecycle.LiveData
+import android.arch.paging.DataSource
 import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Insert
 import android.arch.persistence.room.OnConflictStrategy
@@ -41,6 +42,10 @@ interface BehanceDao {
 
     @Query("select * from project order by published_on desc")
     fun getProjectsLive(): LiveData<List<RichProject>>
+
+    @Query("select * from project order by published_on desc")
+    fun getProjectsPaged(): DataSource.Factory<Int, RichProject>
+
 
     @Query("select * from owner where project_id = :projectId")
     fun getOwnersFromProject(projectId: Int): List<Owner>

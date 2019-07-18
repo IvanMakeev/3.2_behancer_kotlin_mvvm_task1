@@ -3,6 +3,7 @@ package com.example.coursera_31_behancer_kotlin.ui.projects
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import android.arch.paging.PagedList
 import android.support.v4.widget.SwipeRefreshLayout
 import com.example.coursera_31_behancer_kotlin.BuildConfig
 import com.example.coursera_31_behancer_kotlin.data.Storage
@@ -20,7 +21,7 @@ class ProjectsViewModel(
     private var disposable: Disposable? = null
     val isLoading = MutableLiveData<Boolean>()
     val isErrorVisible = MutableLiveData<Boolean>()
-    val projects: LiveData<List<RichProject>> = storage!!.getProjectsLive()
+    val projects: LiveData<PagedList<RichProject>> = storage!!.getProjectsPaged()
     val onRefreshListener = SwipeRefreshLayout.OnRefreshListener {
         updateProjects()
     }

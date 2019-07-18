@@ -1,6 +1,8 @@
 package com.example.coursera_31_behancer_kotlin.data
 
 import android.arch.lifecycle.LiveData
+import android.arch.paging.LivePagedListBuilder
+import android.arch.paging.PagedList
 import com.example.coursera_31_behancer_kotlin.data.database.BehanceDao
 import com.example.coursera_31_behancer_kotlin.data.model.project.*
 import com.example.coursera_31_behancer_kotlin.data.model.user.UserResponse
@@ -33,6 +35,10 @@ class Storage(private val behanceDao: BehanceDao) {
 
     fun getProjectsLive(): LiveData<List<RichProject>> {
         return behanceDao.getProjectsLive()
+    }
+
+    fun getProjectsPaged(): LiveData<PagedList<RichProject>> {
+        return LivePagedListBuilder(behanceDao.getProjectsPaged(), 10).build()
     }
 
     fun getProjects(): ProjectResponse {
