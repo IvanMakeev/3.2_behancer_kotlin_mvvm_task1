@@ -2,10 +2,8 @@ package com.example.coursera_31_behancer_kotlin.ui.projects
 
 import android.arch.paging.PagedListAdapter
 import android.support.v7.util.DiffUtil
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.example.coursera_31_behancer_kotlin.data.model.project.Project
 import com.example.coursera_31_behancer_kotlin.data.model.project.RichProject
 import com.example.coursera_31_behancer_kotlin.databinding.ProjectBinding
 
@@ -36,6 +34,7 @@ class ProjectsAdapter(
 
     override fun onBindViewHolder(holder: ProjectsHolder, position: Int) {
         val project = getItem(position)
+
         if (project != null) {
             holder.bind(project, onItemClickListener)
         }

@@ -16,5 +16,4 @@ data class Cover(
     @ColumnInfo(name = "photo_url")
     @SerializedName("202")
     var photoUrl: String
-) : Serializable {
-}
+) : Serializable

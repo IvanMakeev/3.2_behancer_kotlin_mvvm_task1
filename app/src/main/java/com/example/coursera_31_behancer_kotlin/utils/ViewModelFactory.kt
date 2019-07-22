@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProvider
 import com.example.coursera_31_behancer_kotlin.data.Storage
 import com.example.coursera_31_behancer_kotlin.ui.projects.ProjectsAdapter
 import com.example.coursera_31_behancer_kotlin.ui.projects.all_projects.ProjectsViewModel
+import com.example.coursera_31_behancer_kotlin.ui.projects.user_projects.UserProjectsViewModel
 
 @Suppress("UNCHECKED_CAST")
 class ProjectsViewModelFactory(
@@ -20,15 +21,18 @@ class ProjectsViewModelFactory(
     }
 }
 
+@Suppress("UNCHECKED_CAST")
 class UserProjectsViewModelFactory(
     private val storage: Storage,
-    private val onItemClickListener: ProjectsAdapter.OnItemClickListener
+    private val onItemClickListener: ProjectsAdapter.OnItemClickListener,
+    private val username: String
 ) : ViewModelProvider.NewInstanceFactory() {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return ProjectsViewModel(
+        return UserProjectsViewModel(
             storage,
-            onItemClickListener
+            onItemClickListener,
+            username
         ) as T
     }
 }

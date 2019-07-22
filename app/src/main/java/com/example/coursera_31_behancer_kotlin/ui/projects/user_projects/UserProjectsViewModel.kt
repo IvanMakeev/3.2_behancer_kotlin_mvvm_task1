@@ -1,6 +1,5 @@
 package com.example.coursera_31_behancer_kotlin.ui.projects.user_projects
 
-import com.example.coursera_31_behancer_kotlin.BuildConfig
 import com.example.coursera_31_behancer_kotlin.data.Storage
 import com.example.coursera_31_behancer_kotlin.data.model.project.ProjectResponse
 import com.example.coursera_31_behancer_kotlin.ui.projects.BaseProjectsViewModel
@@ -10,15 +9,17 @@ import io.reactivex.schedulers.Schedulers
 
 class UserProjectsViewModel(
     storage: Storage?,
-    onItemClickListener: ProjectsAdapter.OnItemClickListener
+    onItemClickListener: ProjectsAdapter.OnItemClickListener,
+    private val username: String
 ) : BaseProjectsViewModel(storage, onItemClickListener) {
 
     init {
         updateProjects()
+        projects = storage!!.getProjectsPagedByName(username)
     }
 
     override fun updateProjects() {
-        disposable = ApiUtils.getApiService().getProjects(BuildConfig.API_QUERY)
+        disposable = ApiUtils.getApiService().getUserProjects(username)
             .map(ProjectResponse::projects)
             .doOnSuccess { isErrorVisible.postValue(false) }
             .subscribeOn(Schedulers.io())

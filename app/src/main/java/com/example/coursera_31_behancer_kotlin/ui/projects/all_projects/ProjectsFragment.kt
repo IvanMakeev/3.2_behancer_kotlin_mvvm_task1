@@ -4,18 +4,13 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import com.example.coursera_31_behancer_kotlin.data.Storage
-import com.example.coursera_31_behancer_kotlin.databinding.ProjectsBinding
 import com.example.coursera_31_behancer_kotlin.ui.profile.ProfileActivity
 import com.example.coursera_31_behancer_kotlin.ui.profile.ProfileFragment
+import com.example.coursera_31_behancer_kotlin.ui.projects.BaseProjectsFragment
 import com.example.coursera_31_behancer_kotlin.ui.projects.ProjectsAdapter
 import com.example.coursera_31_behancer_kotlin.utils.ProjectsViewModelFactory
 
-class ProjectsFragment : Fragment() {
+class ProjectsFragment : BaseProjectsFragment() {
 
     companion object {
         fun newInstance(): ProjectsFragment {
@@ -23,7 +18,6 @@ class ProjectsFragment : Fragment() {
         }
     }
 
-    private lateinit var projectsViewModel: ProjectsViewModel
     private val onItemClickListener = object :
         ProjectsAdapter.OnItemClickListener {
         override fun onItemClick(username: String) {
@@ -37,17 +31,12 @@ class ProjectsFragment : Fragment() {
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
-        if (context is Storage.StorageOwner) {
-            val storage = context.obtainStorage()
-            val factory = ProjectsViewModelFactory(storage, onItemClickListener)
-            projectsViewModel = ViewModelProviders.of(this, factory).get(ProjectsViewModel::class.java)
-        }
+        val factory = ProjectsViewModelFactory(storage, onItemClickListener)
+        baseProjectsViewModel = ViewModelProviders.of(this, factory).get(ProjectsViewModel::class.java)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val binding = ProjectsBinding.inflate(inflater, container, false)
-        binding.vm = projectsViewModel
-        binding.lifecycleOwner = this
-        return binding.root
+    override fun onStart() {
+        super.onStart()
+        baseProjectsViewModel?.updateProjects()
     }
 }

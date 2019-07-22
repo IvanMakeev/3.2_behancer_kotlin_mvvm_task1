@@ -3,12 +3,17 @@ package com.example.coursera_31_behancer_kotlin.data
 import android.arch.lifecycle.LiveData
 import android.arch.paging.LivePagedListBuilder
 import android.arch.paging.PagedList
+import android.util.Log
 import com.example.coursera_31_behancer_kotlin.data.database.BehanceDao
 import com.example.coursera_31_behancer_kotlin.data.model.project.*
 import com.example.coursera_31_behancer_kotlin.data.model.user.UserResponse
 import java.util.*
 
 class Storage(private val behanceDao: BehanceDao) {
+
+    companion object {
+        private const val PAGE_SIZE = 5
+    }
 
     fun insertProjects(response: ProjectResponse) {
         insertProjects(response.projects)
@@ -17,7 +22,6 @@ class Storage(private val behanceDao: BehanceDao) {
     fun insertProjects(projects: List<Project>) {
         behanceDao.insertProjects(projects)
         val owners = getOwners(projects)
-        behanceDao.clearOwnerTable()
         behanceDao.insertOwners(owners)
     }
 
@@ -26,7 +30,7 @@ class Storage(private val behanceDao: BehanceDao) {
         for (i in projects.indices) {
 
             val owner = projects[i].owners!![0]
-            owner.id = i
+            owner.id = projects[i].id
             owner.projectId = projects[i].id
             owners.add(owner)
         }
@@ -38,7 +42,11 @@ class Storage(private val behanceDao: BehanceDao) {
     }
 
     fun getProjectsPaged(): LiveData<PagedList<RichProject>> {
-        return LivePagedListBuilder(behanceDao.getProjectsPaged(), 10).build()
+        return LivePagedListBuilder(behanceDao.getProjectsPaged(), PAGE_SIZE).build()
+    }
+
+    fun getProjectsPagedByName(username: String): LiveData<PagedList<RichProject>> {
+        return LivePagedListBuilder(behanceDao.getProjectsPagedByName(username), PAGE_SIZE).build()
     }
 
     fun getProjects(): ProjectResponse {

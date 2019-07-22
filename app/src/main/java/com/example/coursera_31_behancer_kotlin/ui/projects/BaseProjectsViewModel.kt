@@ -16,9 +16,13 @@ abstract class BaseProjectsViewModel(
     protected var disposable: Disposable? = null
     val isLoading = MutableLiveData<Boolean>()
     val isErrorVisible = MutableLiveData<Boolean>()
-    val projects: LiveData<PagedList<RichProject>> = storage!!.getProjectsPaged()
+    var projects: LiveData<PagedList<RichProject>>
     val onRefreshListener = SwipeRefreshLayout.OnRefreshListener {
         updateProjects()
+    }
+
+    init {
+       projects = storage!!.getProjectsPaged()
     }
 
     abstract fun updateProjects()
