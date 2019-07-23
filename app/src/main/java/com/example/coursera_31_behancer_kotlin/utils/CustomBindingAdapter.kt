@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.View.*
+import android.widget.Button
 import android.widget.ImageView
 import com.example.coursera_31_behancer_kotlin.data.model.project.Project
 import com.example.coursera_31_behancer_kotlin.data.model.project.RichProject
@@ -42,7 +43,15 @@ fun configureSwipeRefreshLayout(
     listener: SwipeRefreshLayout.OnRefreshListener
 ) {
     layout.setOnRefreshListener(listener)
-    layout.post { layout.isRefreshing = isLoading }
+    layout.post { layout.isRefreshing = isLoading ?: false }
+}
+
+@BindingAdapter("bind:openProjects")
+fun configureProfileButton(
+    button: Button,
+    onClickListener: OnClickListener
+) {
+    button.setOnClickListener(onClickListener)
 }
 
 @BindingAdapter("bind:visibleOrGone")
@@ -54,3 +63,5 @@ fun View.setVisibleOrGone(hide: Boolean) {
 fun View.setVisible(show: Boolean) {
     visibility = if (show) VISIBLE else INVISIBLE
 }
+
+

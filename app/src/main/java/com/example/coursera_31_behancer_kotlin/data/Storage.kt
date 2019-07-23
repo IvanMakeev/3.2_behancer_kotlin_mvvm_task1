@@ -3,9 +3,12 @@ package com.example.coursera_31_behancer_kotlin.data
 import android.arch.lifecycle.LiveData
 import android.arch.paging.LivePagedListBuilder
 import android.arch.paging.PagedList
-import android.util.Log
 import com.example.coursera_31_behancer_kotlin.data.database.BehanceDao
-import com.example.coursera_31_behancer_kotlin.data.model.project.*
+import com.example.coursera_31_behancer_kotlin.data.model.project.Owner
+import com.example.coursera_31_behancer_kotlin.data.model.project.Project
+import com.example.coursera_31_behancer_kotlin.data.model.project.ProjectResponse
+import com.example.coursera_31_behancer_kotlin.data.model.project.RichProject
+import com.example.coursera_31_behancer_kotlin.data.model.user.User
 import com.example.coursera_31_behancer_kotlin.data.model.user.UserResponse
 import java.util.*
 
@@ -59,11 +62,13 @@ class Storage(private val behanceDao: BehanceDao) {
     }
 
     fun insertUser(response: UserResponse) {
-        val user = response.user
+        insertUser(response.user)
+    }
+
+    fun insertUser(user: User){
         val image = user.image
         image!!.id = user.id
         image.userId = user.id
-
         behanceDao.insertUser(user)
         behanceDao.insertImage(image)
     }

@@ -4,14 +4,12 @@ import com.example.coursera_31_behancer_kotlin.BuildConfig
 import com.example.coursera_31_behancer_kotlin.data.Storage
 import com.example.coursera_31_behancer_kotlin.data.model.project.ProjectResponse
 import com.example.coursera_31_behancer_kotlin.ui.projects.BaseProjectsViewModel
-import com.example.coursera_31_behancer_kotlin.ui.projects.ProjectsAdapter
 import com.example.coursera_31_behancer_kotlin.utils.ApiUtils
 import io.reactivex.schedulers.Schedulers
 
 class ProjectsViewModel(
-    storage: Storage?,
-    onItemClickListener: ProjectsAdapter.OnItemClickListener
-) : BaseProjectsViewModel(storage, onItemClickListener) {
+    storage: Storage?
+) : BaseProjectsViewModel(storage) {
 
     init {
         updateProjects()

@@ -34,7 +34,8 @@ class UserProjectsFragment : BaseProjectsFragment() {
         activity?.let {
             it.title = getString(R.string.projects) + " $username"
         }
-            val factory = UserProjectsViewModelFactory(storage, onItemClickListener, username)
+            val factory = UserProjectsViewModelFactory(storage, username)
             baseProjectsViewModel = ViewModelProviders.of(this, factory).get(UserProjectsViewModel::class.java)
+        (baseProjectsViewModel as UserProjectsViewModel).onItemClickListener = onItemClickListener
     }
 }

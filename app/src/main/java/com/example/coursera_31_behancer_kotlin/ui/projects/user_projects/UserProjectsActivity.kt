@@ -1,6 +1,5 @@
 package com.example.coursera_31_behancer_kotlin.ui.projects.user_projects
 
-import android.os.Bundle
 import android.support.v4.app.Fragment
 import com.example.coursera_31_behancer_kotlin.AppDelegate
 import com.example.coursera_31_behancer_kotlin.common.SingleFragmentActivity

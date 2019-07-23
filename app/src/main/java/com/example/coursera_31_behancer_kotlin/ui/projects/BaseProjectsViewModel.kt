@@ -10,10 +10,10 @@ import com.example.coursera_31_behancer_kotlin.data.model.project.RichProject
 import io.reactivex.disposables.Disposable
 
 abstract class BaseProjectsViewModel(
-    var storage: Storage?,
-    val onItemClickListener: ProjectsAdapter.OnItemClickListener
+    var storage: Storage?
 ) : ViewModel() {
     protected var disposable: Disposable? = null
+    var onItemClickListener: ProjectsAdapter.OnItemClickListener? = null
     val isLoading = MutableLiveData<Boolean>()
     val isErrorVisible = MutableLiveData<Boolean>()
     var projects: LiveData<PagedList<RichProject>>
@@ -22,7 +22,7 @@ abstract class BaseProjectsViewModel(
     }
 
     init {
-       projects = storage!!.getProjectsPaged()
+        projects = storage!!.getProjectsPaged()
     }
 
     abstract fun updateProjects()
@@ -30,8 +30,7 @@ abstract class BaseProjectsViewModel(
     override fun onCleared() {
         super.onCleared()
         storage = null
-        if (disposable != null) {
-            disposable!!.dispose()
-        }
+
+        disposable?.let { it.dispose() }
     }
 }
