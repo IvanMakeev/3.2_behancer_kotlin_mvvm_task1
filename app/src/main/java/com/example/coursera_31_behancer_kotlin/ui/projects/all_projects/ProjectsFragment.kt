@@ -4,11 +4,6 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import com.example.coursera_31_behancer_kotlin.AppDelegate
 import com.example.coursera_31_behancer_kotlin.ui.profile.ProfileActivity
 import com.example.coursera_31_behancer_kotlin.ui.profile.ProfileFragment
 import com.example.coursera_31_behancer_kotlin.ui.projects.BaseProjectsFragment
@@ -22,6 +17,7 @@ class ProjectsFragment : BaseProjectsFragment() {
             return ProjectsFragment()
         }
     }
+
 
     private var onItemClickListener: ProjectsAdapter.OnItemClickListener? = null
 
@@ -39,11 +35,6 @@ class ProjectsFragment : BaseProjectsFragment() {
         val factory = ProjectsViewModelFactory(storage)
         baseProjectsViewModel = ViewModelProviders.of(this, factory).get(ProjectsViewModel::class.java)
         (baseProjectsViewModel as ProjectsViewModel).onItemClickListener = onItemClickListener
-    }
-
-    override fun onStart() {
-        super.onStart()
-        baseProjectsViewModel?.updateProjects()
     }
 
     override fun onDetach() {

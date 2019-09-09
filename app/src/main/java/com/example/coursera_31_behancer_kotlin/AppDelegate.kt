@@ -5,11 +5,6 @@ import android.arch.persistence.room.Room
 import com.example.coursera_31_behancer_kotlin.data.Storage
 import com.example.coursera_31_behancer_kotlin.data.database.BehanceDatabase
 
-
-/**
- * Created by Vladislav Falzan.
- */
-
 class AppDelegate : Application() {
 
     var storage: Storage? = null
