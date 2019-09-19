@@ -61,4 +61,9 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.5.2'
 
     kapt "androidx.databinding:databinding-compiler:$android_plugin_version"
+
+    def toothpick_version = "3.1.0"
+    implementation "com.github.stephanenicolas.toothpick:toothpick-runtime:$toothpick_version"
+    implementation "com.github.stephanenicolas.toothpick:smoothie:$toothpick_version"
+    kapt "com.github.stephanenicolas.toothpick:toothpick-compiler:$toothpick_version"
 }
