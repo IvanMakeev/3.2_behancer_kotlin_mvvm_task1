@@ -6,8 +6,11 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.coursera_31_behancer_kotlin.data.Storage
+import com.example.coursera_31_behancer_kotlin.AppDelegate
 import com.example.coursera_31_behancer_kotlin.databinding.ProfileBinding
+import com.example.coursera_31_behancer_kotlin.di.VMModule
+import toothpick.Toothpick
+import javax.inject.Inject
 
 class ProfileFragment : Fragment() {
 
@@ -21,18 +24,19 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    private lateinit var profileViewModel: ProfileViewModel
+    @Inject
+    lateinit var profileViewModel: ProfileViewModel
     private lateinit var username: String
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
-        if (context is Storage.StorageOwner) {
-            val storage = context.obtainStorage()
-            if (arguments != null) {
-                username = arguments!!.getString(PROFILE_KEY)!!
-            }
-            profileViewModel = ProfileViewModel(storage, username)
+        if (arguments != null) {
+            username = arguments!!.getString(PROFILE_KEY)!!
         }
+        val vmScope = Toothpick.openScopes(AppDelegate::class.java, ProfileViewModel::class.java)
+        vmScope.installModules(VMModule())
+        Toothpick.inject(this, vmScope)
+        profileViewModel.setUsername(username)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -46,7 +50,9 @@ class ProfileFragment : Fragment() {
         if (activity != null) {
             activity!!.title = username
         }
-        profileViewModel.loadProfile()
+        if (savedInstanceState == null) {
+            profileViewModel.loadProfile()
+        }
     }
 
     override fun onDetach() {

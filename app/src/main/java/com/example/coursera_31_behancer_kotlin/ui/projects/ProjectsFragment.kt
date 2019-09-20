@@ -7,11 +7,14 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.coursera_31_behancer_kotlin.AppDelegate
 import com.example.coursera_31_behancer_kotlin.R
-import com.example.coursera_31_behancer_kotlin.data.Storage
 import com.example.coursera_31_behancer_kotlin.databinding.ProjectsBinding
+import com.example.coursera_31_behancer_kotlin.di.VMModule
 import com.example.coursera_31_behancer_kotlin.ui.profile.ProfileActivity
 import com.example.coursera_31_behancer_kotlin.ui.profile.ProfileFragment
+import toothpick.Toothpick
+import javax.inject.Inject
 
 class ProjectsFragment : Fragment() {
 
@@ -21,7 +24,8 @@ class ProjectsFragment : Fragment() {
         }
     }
 
-    private lateinit var projectsViewModel: ProjectsViewModel
+    @Inject
+    lateinit var projectsViewModel: ProjectsViewModel
     private val onItemClickListener = object : ProjectsAdapter.OnItemClickListener {
         override fun onItemClick(username: String) {
             val intent = Intent(activity, ProfileActivity::class.java)
@@ -34,10 +38,10 @@ class ProjectsFragment : Fragment() {
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
-        if (context is Storage.StorageOwner) {
-            val storage = context.obtainStorage()
-            projectsViewModel = ProjectsViewModel(storage, onItemClickListener)
-        }
+        val vmScope = Toothpick.openScopes(AppDelegate::class.java, ProjectsViewModel::class.java)
+        vmScope.installModules(VMModule())
+        Toothpick.inject(this, vmScope)
+        projectsViewModel.onItemClickListener = onItemClickListener
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -52,7 +56,9 @@ class ProjectsFragment : Fragment() {
         if (activity != null) {
             activity!!.setTitle(R.string.projects)
         }
-        projectsViewModel.loadProjects()
+        if (savedInstanceState == null) {
+            projectsViewModel.loadProjects()
+        }
     }
 
     override fun onDetach() {

@@ -69,9 +69,4 @@ class Storage(private val behanceDao: BehanceDao) {
         return UserResponse(user)
 
     }
-
-    interface StorageOwner {
-        fun obtainStorage(): Storage
-    }
-
 }

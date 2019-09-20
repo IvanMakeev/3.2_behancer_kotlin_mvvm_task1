@@ -1,11 +1,10 @@
 package com.example.coursera_31_behancer_kotlin.ui.profile
 
 import android.support.v4.app.Fragment
-import com.example.coursera_31_behancer_kotlin.AppDelegate
 import com.example.coursera_31_behancer_kotlin.common.SingleFragmentActivity
-import com.example.coursera_31_behancer_kotlin.data.Storage
+import toothpick.Toothpick
 
-class ProfileActivity : SingleFragmentActivity(), Storage.StorageOwner {
+class ProfileActivity : SingleFragmentActivity(){
 
     companion object {
         const val USERNAME_KEY = "USERNAME_KEY"
@@ -18,7 +17,8 @@ class ProfileActivity : SingleFragmentActivity(), Storage.StorageOwner {
         throw IllegalStateException("getIntent cannot be null")
     }
 
-    override fun obtainStorage(): Storage {
-        return (applicationContext as AppDelegate).storage!!
+    override fun onBackPressed() {
+        super.onBackPressed()
+        Toothpick.closeScope(ProfileViewModel::class.java)
     }
 }
